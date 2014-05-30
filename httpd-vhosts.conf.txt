@@ -1,0 +1,15 @@
+# The VirtualHost config I used for the demo
+
+<VirtualHost *:80>
+    ServerName cinemaequip-demo.local
+    ServerAlias www.cinemaequip-demo.local
+    DocumentRoot "/home/notroot/public_html/cinemaequip-demo"
+    ErrorLog "/var/log/httpd/cinemaequip-demo.local-error_log"
+    CustomLog "/var/log/httpd/cinemaequip-demo.local-access_log" common
+    <Directory /home/notroot/public_html/cinemaequip-demo>
+        DirectoryIndex index.php
+	AllowOverride ALL
+	Order allow,deny
+	Allow from all
+    </Directory>
+</VirtualHost>
