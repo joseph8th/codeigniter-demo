@@ -38,8 +38,11 @@
 |
 */
 
-$route['default_controller'] = "welcome";
-$route['404_override'] = '';
+$route['users/create'] = 'users/create';
+$route['users/(:any)'] = 'users/view/$1';
+$route['users'] = 'users';
+$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = 'pages/view';
 
 
 /* End of file routes.php */
