@@ -12,6 +12,26 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 
+    <script>     
+     $(document).ready(function(){
+       $("#userCreateForm").validate({
+         rules: {
+           name: "required",
+           dob: "required",
+           email: {
+             required: true,
+             email: true
+           }
+         },
+         messages: { 
+           name: "Name required",
+           dob: "Date of Birth required",
+           email: "Valid email required"
+         }
+       });
+     });
+    </script>
+
   </head>
 
   <body>

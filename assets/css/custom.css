@@ -5,3 +5,12 @@
 body {
    padding-top: 15px;
 }
+
+#userCreateForm label.error {
+    color: red;
+    font-size: .7em;
+}
+#userCreateForm input.error {
+    border: 1px solid red;
+    background: #FFFFCC;
+}

@@ -1,5 +1,5 @@
 <article>
-  <h2><?php echo $user['name'] ?></h2>
+  <h2><?= $user['name'] ?></h2>
   <ul class="list-group">
     <li class="list-group-item">
       <strong>Email</strong>:
