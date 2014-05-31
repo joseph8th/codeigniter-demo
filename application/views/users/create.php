@@ -14,7 +14,7 @@
 <div class="form-group">
   <?php echo form_label('Date of Birth', 'dob'); ?>
   <input type="date" name="dob" class="form-control"
-         id="dob" placeholder="YYYY-MM-DD"
+         id="dob" placeholder="YYYY-MM-DD or MM/DD/YYYY"
          value="<?php echo set_value('dob'); ?>" />
   <?php echo form_error('dob'); ?>
 </div>

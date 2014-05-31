@@ -6,7 +6,7 @@ body {
    padding-top: 15px;
 }
 
-#userCreateForm label.error {
+#userCreateForm label.error, #userCreateForm div.error {
     color: red;
     font-size: .7em;
 }

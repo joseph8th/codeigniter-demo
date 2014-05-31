@@ -23,13 +23,35 @@ class Users_model extends CI_Model {
 
   public function set_users()
   {
-    $this->load->helper('url');
+    // Create a unique username from the validated 'name' field
     $username = url_title($this->input->post('name'), 'dash', TRUE);
 
+    // if the username already exists then create a unique one
+    $suffix = 0;
+    $testname = $username;
+    do {
+      $query = $this->db->get_where('users', array('username' => $testname));
+
+      if ( empty($query->row_array()) ) break;
+
+      $testname = $username . "-{$suffix}";
+      $suffix++;
+    } while ( ! empty($query) );
+
+    $username = $testname;
+
+    // Format date of birth to ISODate from validated 'dob' field
+    $dobStr = str_replace('/', '-', $this->input->post('dob'));
+    $dobAry = explode('-', $dobStr);
+
+    if ( strlen($dobAry[2]) == 4 )
+      $dobStr = implode('-', array($dobAry[2], $dobAry[0], $dobAry[1]));
+
+    // Then setup 'data' array for insertion
     $data = array('name'      => $this->input->post('name'),
                   'username'  => $username,
                   'email'     => $this->input->post('email'),
-                  'dob'       => $this->input->post('dob'),
+                  'dob'       => $dobStr,
                   'fav_color' => $this->input->post('fav_color')
                   );
 
