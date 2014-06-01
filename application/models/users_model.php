@@ -29,6 +29,7 @@ class Users_model extends CI_Model {
     // if the username already exists then create a unique one
     $suffix = 0;
     $testname = $username;
+
     do {
       $query = $this->db->get_where('users', array('username' => $testname));
 
@@ -59,3 +60,5 @@ class Users_model extends CI_Model {
   }
 
 }
+
+/* End of users_model.php */

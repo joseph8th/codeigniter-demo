@@ -45,17 +45,17 @@ class Users extends CI_Controller {
                    array(
                          'field' => 'name',
                          'label' => 'Name',
-                         'rules' => 'trim|max_length[64]'
+                         'rules' => 'trim|required|max_length[64]'
                          ),
                    array(
                          'field' => 'email',
                          'label' => 'Email',
-                         'rules' => 'trim|max_length[64]'
+                         'rules' => 'trim|required|max_length[64]'
                          ),
                    array(
                          'field' => 'dob',
                          'label' => 'Date of Birth',
-                         'rules' => 'callback_dob_check'
+                         'rules' => 'required|callback_dob_check'
                          ),
                    array(
                          'field' => 'fav_color',
@@ -68,20 +68,22 @@ class Users extends CI_Controller {
     $this->form_validation->set_error_delimiters('<div class="error">',
                                                  '</div>');
 
-    if ($this->form_validation->run() === FALSE) 
-      {
-        $this->load->view('templates/header', $data);
-        $this->load->view('users/create');
-        $this->load->view('templates/footer');
-      }
-    else
-      {
-        $this->users_model->set_users();
+    if ($this->form_validation->run() === FALSE) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/create');
+      $this->load->view('templates/footer');
+    }
+    else {
+      $this->users_model->set_users();
 
+      // load 'success' view only if not AJAX request
+      if ( $this->input->post('is_ajax') != '1' ) {
         $this->load->view('templates/header', $data);
         $this->load->view('users/success');
         $this->load->view('templates/footer');
       }
+    }
+
   }
 
 
@@ -115,5 +117,6 @@ class Users extends CI_Controller {
     return FALSE;
   }
 
-
 }
+
+/* End of users.php */

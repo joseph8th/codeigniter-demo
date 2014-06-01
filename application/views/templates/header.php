@@ -8,27 +8,16 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/assets/css/custom.css" rel="stylesheet" media="screen">
  
-    <!-- jQuery CDNs for jquery.validate plugin -->
+    <!-- jQuery CDNs including validate and ajaxSubmit plugins -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+ 
+    <script src="/assets/js/custom.js"></script>
     <script>     
      $(document).ready(function(){
-       $("#userCreateForm").validate({
-         rules: {
-           name: "required",
-           dob: "required",
-           email: {
-             required: true,
-             email: true
-           }
-         },
-         messages: { 
-           name: "Name required",
-           dob: "Date of Birth required",
-           email: "Valid email required"
-         }
-       });
+       validate();
+       ajaxCreateUser();
      });
     </script>
 
