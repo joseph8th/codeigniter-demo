@@ -29,11 +29,25 @@ class Users extends CI_Controller {
       show_404();
     }
 
-    $data['title'] = $data['user']['name'];
+    if ($this->input->post('user_action') == 'edit') {
+      $data['title'] = "Edit " . $data['user']['name'];
+    }
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('users/view', $data);
-    $this->load->view('templates/footer');
+    elseif ($this->input->post('user_action') == 'delete') {
+      $data['title'] = "Delete " . $data['user']['name'];
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/delete-confirm', $data);
+      $this->load->view('templates/footer');
+    }
+
+    else {
+      $data['title'] = $data['user']['name'];
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/view', $data);
+      $this->load->view('templates/footer');
+    }
   }
 
 
@@ -84,6 +98,29 @@ class Users extends CI_Controller {
       }
     }
 
+  }
+
+
+  public function delete($username)
+  {
+    $data['user'] = $this->users_model->get_users($username);
+    $postData = $this->input->post();
+
+    if (array_key_exists('cancel', $postData)) {      
+      $data['title'] = $data['user']['name'];
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/view', $data);
+      $this->load->view('templates/footer');
+    }
+
+    else {
+      $this->users_model->delete_users($username);
+
+      $data['title'] = "Delete " . $data['user']['name'];
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/delete-success', $data);
+      $this->load->view('templates/footer');
+    }
   }
 
 

@@ -6,7 +6,7 @@
   <p>User successfully created.</p> 
 </div>
 
-<div id="userCreate">
+<div id="formDiv">
 
   <!-- Using CodeIgniter 'form' helpers as much as possible here -->
   <?php echo form_open('users/create', array('id' => 'userCreateForm')) ?>
@@ -14,7 +14,7 @@
   <?php echo form_fieldset('User Profile') ?>
   
   <div class="form-group">
-    <?php echo form_label('Full Name: ', 'name'); ?>
+    <?php echo form_label('Full Name', 'name'); ?>
     <input type="text" name="name" class="name form-control"
            id="name" placeholder="Full Name"
            value="<?php echo set_value('name'); ?>" />

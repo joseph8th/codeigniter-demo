@@ -16,8 +16,7 @@
     <script src="/assets/js/custom.js"></script>
     <script>     
      $(document).ready(function(){
-       validate();
-       ajaxCreateUser();
+       validateCreateUser();
      });
     </script>
 

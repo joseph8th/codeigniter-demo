@@ -59,6 +59,12 @@ class Users_model extends CI_Model {
     return $this->db->insert('users', $data);
   }
 
+
+  public function delete_users($username)
+  {
+    $this->db->delete('users', array('username' => $username));
+  }
+
 }
 
 /* End of users_model.php */

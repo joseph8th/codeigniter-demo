@@ -1,7 +1,7 @@
 (function($){
 
     // jQuery.validate() for forms
-    validate = function() {
+    validateCreateUser = function() {
         $("#userCreateForm").validate({
             rules: {
                 name: "required",
@@ -38,15 +38,15 @@
     }
 
     ajaxSuccess = function (responseText, statusText, xhr, $form) {
-        $('.text').attr('disabled','true');
+        //$('.text').attr('disabled','true');
         $('.loading').show();
-        $('#userCreate').fadeOut('slow');
+        $('#formDiv').fadeOut('slow');
         $('#success').fadeIn('slow');
     }
 
     ajaxError = function() {
         $('#success').html(errmsg);
-        $('#userCreate').fadeOut('slow');
+        $('#formDiv').fadeOut('slow');
         $('#success').fadeIn('slow');
     }
 

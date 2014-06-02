@@ -11,6 +11,18 @@ body {
     background: #FFFFCC;
 }
 
+
+.column-wrapper {
+    width: 100%;
+    clear: right;
+    display: inline-block;
+}
+
+.column {
+    width: 50%;
+    float: left;
+}
+
 .loading {
     float: right;
     background: url('/assets/img/loader.gif') no-repeat;
