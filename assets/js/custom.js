@@ -2,7 +2,7 @@
 
     // jQuery.validate() for forms
     validateCreateUser = function() {
-        $("#userCreateForm").validate({
+        $("#userForm").validate({
             rules: {
                 name: "required",
                 dob: {

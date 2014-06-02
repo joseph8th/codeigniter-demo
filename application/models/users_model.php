@@ -29,7 +29,6 @@ class Users_model extends CI_Model {
     // if the username already exists then create a unique one
     $suffix = 0;
     $testname = $username;
-
     do {
       $query = $this->db->get_where('users', array('username' => $testname));
 
@@ -38,15 +37,10 @@ class Users_model extends CI_Model {
       $testname = $username . "-{$suffix}";
       $suffix++;
     } while ( ! empty($query) );
-
     $username = $testname;
 
-    // Format date of birth to ISODate from validated 'dob' field
-    $dobStr = str_replace('/', '-', $this->input->post('dob'));
-    $dobAry = explode('-', $dobStr);
-
-    if ( strlen($dobAry[2]) == 4 )
-      $dobStr = implode('-', array($dobAry[2], $dobAry[0], $dobAry[1]));
+    // make sure we have an ISO Date for the DB
+    $dobStr = $this->get_ISOdate($this->input->post('dob'));
 
     // Then setup 'data' array for insertion
     $data = array('name'      => $this->input->post('name'),
@@ -60,9 +54,38 @@ class Users_model extends CI_Model {
   }
 
 
+  public function update_users($username)
+  {
+    // make sure we have an ISO Date for the DB
+    $dobStr = $this->get_ISOdate($this->input->post('dob'));
+
+    // Then setup 'data' array for insertion
+    $data = array('name'      => $this->input->post('name'),
+                  'email'     => $this->input->post('email'),
+                  'dob'       => $dobStr,
+                  'fav_color' => $this->input->post('fav_color')
+                  );
+
+    return $this->db->update('users', $data, array('username' => $username));
+  }
+
+
   public function delete_users($username)
   {
     $this->db->delete('users', array('username' => $username));
+  }
+
+
+  private function get_ISOdate($dateStr)
+  {
+    // Format date of birth to ISODate from validated 'dob' field
+    $dobStr = str_replace('/', '-', $dateStr);
+    $dobAry = explode('-', $dobStr);
+
+    if ( strlen($dobAry[2]) == 4 )
+      $dobStr = implode('-', array($dobAry[2], $dobAry[0], $dobAry[1]));
+
+    return $dobStr;
   }
 
 }

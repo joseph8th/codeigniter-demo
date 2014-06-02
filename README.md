@@ -3,6 +3,29 @@ CodeIgniter Demo
 
 A demo app to meet CinemaEquip.com development team's challenge.
 
+
+Configuration
+-------------
+
+### VirtualHost:
+
+Currently the demo is set to run from a virtualhost at `http://cinemaequip-demo.local`.
+
+Two options: 
+
+1. Change the `$config['base_url']` setting in `application/config/config.php` to your liking (ie, `localhost/~user/cinemaequip-demo`).
+2. Alter the included `httpd-vhosts.conf.txt` file to create your own virtualhost serving `cinemaequip-demo.local`.
+ 
+### MySQL Database: 
+
+Sample data is in a file called `ci_demo.sql` in the project root.
+
+* hostname: 'localhost'
+* database: 'ci_demo' 
+* username: 'cinemaequip'
+* password: 'CinemaEquip'
+
+
 Challenge Specs
 ---------------
 

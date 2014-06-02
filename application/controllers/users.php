@@ -30,12 +30,14 @@ class Users extends CI_Controller {
     }
 
     if ($this->input->post('user_action') == 'edit') {
-      $data['title'] = "Edit " . $data['user']['name'];
+      $data['title'] = "Update " . $data['user']['name'];
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/update', $data);
+      $this->load->view('templates/footer');
     }
 
     elseif ($this->input->post('user_action') == 'delete') {
       $data['title'] = "Delete " . $data['user']['name'];
-
       $this->load->view('templates/header', $data);
       $this->load->view('users/delete-confirm', $data);
       $this->load->view('templates/footer');
@@ -43,7 +45,6 @@ class Users extends CI_Controller {
 
     else {
       $data['title'] = $data['user']['name'];
-
       $this->load->view('templates/header', $data);
       $this->load->view('users/view', $data);
       $this->load->view('templates/footer');
@@ -55,29 +56,7 @@ class Users extends CI_Controller {
   {
     $data['title'] = 'Create User';
 
-    $rules = array(
-                   array(
-                         'field' => 'name',
-                         'label' => 'Name',
-                         'rules' => 'trim|required|max_length[64]'
-                         ),
-                   array(
-                         'field' => 'email',
-                         'label' => 'Email',
-                         'rules' => 'trim|required|max_length[64]'
-                         ),
-                   array(
-                         'field' => 'dob',
-                         'label' => 'Date of Birth',
-                         'rules' => 'required|callback_dob_check'
-                         ),
-                   array(
-                         'field' => 'fav_color',
-                         'label' => 'Favorite Color',
-                         'rules' => 'trim|min_length[3]|max_length[64]'
-                         )
-                   );
-
+    $rules = $this->get_form_rules();
     $this->form_validation->set_rules($rules);
     $this->form_validation->set_error_delimiters('<div class="error">',
                                                  '</div>');
@@ -93,7 +72,36 @@ class Users extends CI_Controller {
       // load 'success' view only if not AJAX request
       if ( $this->input->post('is_ajax') != '1' ) {
         $this->load->view('templates/header', $data);
-        $this->load->view('users/success');
+        $this->load->view('users/create-success');
+        $this->load->view('templates/footer');
+      }
+    }
+
+  }
+
+
+  public function update($username)
+  {
+    $data['user'] = $this->users_model->get_users($username);
+    $data['title'] = 'Update User';
+    
+    $rules = $this->get_form_rules();
+    $this->form_validation->set_rules($rules);
+    $this->form_validation->set_error_delimiters('<div class="error">',
+                                                 '</div>');
+
+    if ($this->form_validation->run() === FALSE) {
+      $this->load->view('templates/header', $data);
+      $this->load->view('users/update', $data);
+      $this->load->view('templates/footer');
+    }
+    else {
+      $this->users_model->update_users($username);
+
+      // load 'success' view only if not AJAX request
+      if ( $this->input->post('is_ajax') != '1' ) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('users/update-success');
         $this->load->view('templates/footer');
       }
     }
@@ -152,6 +160,33 @@ class Users extends CI_Controller {
                        );
 
     return FALSE;
+  }
+
+
+  private function get_form_rules()
+  {
+    return array(
+                 array(
+                       'field' => 'name',
+                       'label' => 'Name',
+                       'rules' => 'trim|required|max_length[64]'
+                       ),
+                 array(
+                       'field' => 'email',
+                       'label' => 'Email',
+                       'rules' => 'trim|required|max_length[64]'
+                       ),
+                 array(
+                       'field' => 'dob',
+                       'label' => 'Date of Birth',
+                       'rules' => 'required|callback_dob_check'
+                       ),
+                 array(
+                       'field' => 'fav_color',
+                       'label' => 'Favorite Color',
+                       'rules' => 'trim|min_length[3]|max_length[64]'
+                       )
+                 );
   }
 
 }

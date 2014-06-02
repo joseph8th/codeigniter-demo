@@ -2,11 +2,11 @@ body {
    padding-top: 15px;
 }
 
-#userCreateForm label.error, #userCreateForm div.error {
+#userForm label.error, #userForm div.error {
     color: red;
     font-size: .7em;
 }
-#userCreateForm input.error {
+#userForm input.error {
     border: 1px solid red;
     background: #FFFFCC;
 }
