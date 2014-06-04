@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * CI_Model class encapsulating 'Users' data get, set, update and delete.
+ */
 class Users_model extends CI_Model {
 
 
@@ -76,6 +79,13 @@ class Users_model extends CI_Model {
   }
 
 
+  /**
+   * Method to reformat validated date string and return ISO date.
+   *
+   * @param string $dateStr The pre-validated date string to format.
+   *
+   * @return string Returns date string in ISO format.
+   */
   private function get_ISOdate($dateStr)
   {
     // Format date of birth to ISODate from validated 'dob' field

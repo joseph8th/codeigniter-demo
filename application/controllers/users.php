@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * CI_Controller class maps 'User' model to list and detail views, as well as * create, update, and delete views. 
+ */
 class Users extends CI_Controller {
 
 
@@ -21,6 +24,12 @@ class Users extends CI_Controller {
   }
 
 
+  /**
+   * Controls which view (view detail, update or delete) will be loaded based
+   * on POST data from 'user_action' form in 'users/view' page.
+   *
+   * @param string $username The 'username' slug of the User to view or edit.
+   */
   public function view($username)
   {
     $data['user'] = $this->users_model->get_users($username);
@@ -131,8 +140,15 @@ class Users extends CI_Controller {
     }
   }
 
-
-  public function dob_check($str)
+  /**
+   * Function to validate 'Date of Birth' date field. Must be in ISO or US
+   * date format.
+   *
+   * @param string $str The date string to be validated.
+   *
+   * @return bool Returns TRUE if $str is valid, otherwise FALSE.
+   */
+  private function dob_check($str)
   {
     $this->form_validation->set_message('dob_check',
                                         'Invalid Date format.');
@@ -163,6 +179,11 @@ class Users extends CI_Controller {
   }
 
 
+  /**
+   * Method to return CI validation rules for create and update forms. 
+   *
+   * @return mixed[][] Returns array of arrays of form rules for each field.
+   */
   private function get_form_rules()
   {
     return array(
